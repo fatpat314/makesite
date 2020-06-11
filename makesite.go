@@ -32,9 +32,10 @@ func main() {
 	}
 	// set content to a string that is fileContent and point to Content struct
 	content := Content{string(fileContents)}
-	// Make the new template "temp.html" from parsed path
-	t := template.Must(template.New("temp.html").ParseFiles(path...))
-	err2 := t.Execute(os.Stdout, content)
+	// Make the new template from parsed path
+	t := template.Must(template.New("template.tmpl").ParseFiles(path...))
+	create, _ := os.Create("render.html")
+	err2 := t.Execute(create, content)
 	if err2 != nil{
 		panic(err2)
 		}
