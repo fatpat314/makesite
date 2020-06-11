@@ -9,25 +9,34 @@ import (
 
 )
 
-
-type Contents struct {
+// Creating Contents structure
+type Content struct {
+	// Setting content structure as a string
 	Content string
 }
-
+// Create main
 func main() {
 	// """Writing file content"""
 	fileContents, err := ioutil.ReadFile("first-post.txt")
+	// if there is an error, panic
 	if err != nil {
+		// panic
 		panic(err)
 	}
+	// print fileContent
 	fmt.Print(string(fileContents))
 
-	content := Contents{"first-post.txt"}
-
-	t := template.Must(template.New("temp.html").ParseFiles("template.tmpl"))
+	// set file path for ParseFile
+	path := []string{
+		"template.tmpl",
+	}
+	// set content to a string that is fileContent and point to Content struct
+	content := Content{string(fileContents)}
+	// Make the new template "temp.html" from parsed path
+	t := template.Must(template.New("temp.html").ParseFiles(path...))
 	err2 := t.Execute(os.Stdout, content)
 	if err2 != nil{
-		panic(err)
+		panic(err2)
 		}
 	}
 
