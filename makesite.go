@@ -34,7 +34,7 @@ func main() {
 	content := Content{string(fileContents)}
 	// Make the new template from parsed path
 	t := template.Must(template.New("template.tmpl").ParseFiles(path...))
-	create, _ := os.Create("render.html")
+	create, _ := os.Create("first-post.html")
 	err2 := t.Execute(create, content)
 	if err2 != nil{
 		panic(err2)
