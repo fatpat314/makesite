@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"os"
+	"flag"
 
 )
 
@@ -16,7 +17,17 @@ type Content struct {
 }
 // Create main
 func main() {
-	// """Writing file content"""
+
+	file := flag.String("file", ".txt", "This flag represents the name of any `.txt` file in the same directory as your program.")
+	flag.Parse()
+	fmt.Println(*file)
+	// output := flag.Bool("output", false, "Should there be output?")
+	// input := flag.String("input", "file.csv", "the pather to the input file")
+	// flag.Parse()
+	// fmt.Println(*output)
+	// fmt.Println(*input)
+
+	// """Reading file content"""
 	fileContents, err := ioutil.ReadFile("first-post.txt")
 	// if there is an error, panic
 	if err != nil {
@@ -34,12 +45,14 @@ func main() {
 	content := Content{string(fileContents)}
 	// Make the new template from parsed path
 	t := template.Must(template.New("template.tmpl").ParseFiles(path...))
-	create, _ := os.Create("first-post.html")
+	// Create html
+	create, _ := os.Create(*file)
 	err2 := t.Execute(create, content)
 	if err2 != nil{
 		panic(err2)
 		}
 	}
+
 
 
 	// fileContents, err := ioutil.ReadFile("first-post.txt")
@@ -70,14 +83,14 @@ func main() {
 
 
 
-func readFile() string {
-	fileContents, err := ioutil.ReadFile("first-post.txt")
-	if err != nil {
-		panic(err)
-	}
-
-	return string(fileContents)
-}
+// func readFile() string {
+// 	fileContents, err := ioutil.ReadFile("first-post.txt")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+//
+// 	return string(fileContents)
+// }
 
 
 
