@@ -17,8 +17,8 @@ type Content struct {
 	Content string
 }
 
-```What is the right way to make the functions modular? I am not sure how to call
-these functions when the main() does not accept input or return output ```
+// ```What is the right way to make the functions modular? I am not sure how to call
+// these functions when the main() does not accept input or return output ```
 // Create main
 func main() {
 	// READ
