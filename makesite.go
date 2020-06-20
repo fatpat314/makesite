@@ -23,7 +23,7 @@ type Content struct {
 // these functions when the main() does not accept input or return output ```
 
 
-func readDir() {
+func renDir() {
 	dir := flag.String("dir", ".", "Find all .txt")
 	file, err := os.Open(*dir)
 	if err != nil{
@@ -50,17 +50,24 @@ func readDir() {
 		if name == ""{
 			// do nothing
 		}else{
+		// Basically the same code as render, I would like to figure out
+		// how to organize the inputs for RENDER so it can be modular and
+		 // so I can begin to have all of my function calls in main.
 		fmt.Print(name, "\n")
 		path := []string{
 			"template.tmpl",
 		}
 		extension := ".html"
-		file2 := name
+		file := name
 
+		fileContents, err := ioutil.ReadFile(name)
+		if err != nil {
+			// panic
+			panic(err)
+		}
 		// split from "." and replate with extention
-		newFile := strings.Split(file2, ".") [0] + extension
-		content := Content{string(list[1])}
-
+		newFile := strings.Split(file, ".") [0] + extension
+		content := Content{string(fileContents)}
 		t := template.Must(template.New("template.tmpl").ParseFiles(path...))
 		// Create new file
 		create, _ := os.Create(newFile)
@@ -68,35 +75,29 @@ func readDir() {
 		if err2 != nil{
 			panic(err2)
 			}
+		}
 	}
 }
 // -------------------------------------------------------------------------//
+// Okay, I really need some help figuring out how to make this more modular,
+// This is getting ridiculous...
+// ------------------------------------------------------------------------//
 
-	// Okay, so now we need to render an html for each file in the list
-	// path := []string{
-	// 	"template.tmpl",
-	// }
-	// extension := ".html"
-	// file2 := list[1]
-	//
-	// // split from "." and replate with extention
-	// newFile := strings.Split(file2, ".") [0] + extension
-	// content := Content{string(list[1])}
-	//
-	// t := template.Must(template.New("template.tmpl").ParseFiles(path...))
-	// // Create new file
-	// create, _ := os.Create(newFile)
-	// err2 := t.Execute(create, content)
-	// if err2 != nil{
-	// 	panic(err2)
-	// 	}
-}
-
+// func read(){
+// 	fileContents, err := ioutil.ReadFile("first-post.txt")
+// 	// if there is an error, panic
+// 	if err != nil {
+// 		// panic
+// 		panic(err)
+// 	}
+// 	return
+// }
 
 
 func main() {
 
-	readDir()
+	renDir()
+
 
 	// READ
 	// """Reading file content"""
