@@ -30,12 +30,9 @@ func readDir() {
 		log.Fatal("failed opening directory: %s", err)
 	}
 	defer file.Close()
-
 	list, _ := file.Readdirnames(0)
-	// fmt.Println(list)
 	n := 0
 	for _, name := range list {
-
 		if strings.Split(name, "")[len(name)-1] != "t"  {
 			list[n] = ""
 		}
@@ -46,57 +43,60 @@ func readDir() {
 		// fmt.Print(list)
 		if strings.Split(name, ".")[0] == "" {
 			list[m] = ""
-			// fmt.Println(name)
 		}
 		m += 1
 	}
-	fmt.Print("LIST: ", list)
+	for _, name := range list{
+		if name == ""{
+			// do nothing
+		}else{
+		fmt.Print(name, "\n")
+		path := []string{
+			"template.tmpl",
+		}
+		extension := ".html"
+		file2 := name
+
+		// split from "." and replate with extention
+		newFile := strings.Split(file2, ".") [0] + extension
+		content := Content{string(list[1])}
+
+		t := template.Must(template.New("template.tmpl").ParseFiles(path...))
+		// Create new file
+		create, _ := os.Create(newFile)
+		err2 := t.Execute(create, content)
+		if err2 != nil{
+			panic(err2)
+			}
+	}
 }
+// -------------------------------------------------------------------------//
 
-
-	// fmt.Print(n)
-
-
+	// Okay, so now we need to render an html for each file in the list
+	// path := []string{
+	// 	"template.tmpl",
+	// }
+	// extension := ".html"
+	// file2 := list[1]
+	//
+	// // split from "." and replate with extention
+	// newFile := strings.Split(file2, ".") [0] + extension
+	// content := Content{string(list[1])}
+	//
+	// t := template.Must(template.New("template.tmpl").ParseFiles(path...))
+	// // Create new file
+	// create, _ := os.Create(newFile)
+	// err2 := t.Execute(create, content)
+	// if err2 != nil{
+	// 	panic(err2)
+	// 	}
+}
 
 
 
 func main() {
 
 	readDir()
-
-
-
-
-
-
-
-
-	// var files []string
-
-	// dir := flag.String("dir", "makesite", "Find all .txt")
-	// flag.Parse()
-
-	// for _, file := range *dir{
-	// 	// fmt.Println("hi")
-	// 	fmt.Println(files)
-	// 	fmt.Println(file)
-	// 	return
-	//
-	// 	if filepath.Ext(*dir) == ".txt" {
-	// 		files = append(files, filepath.Ext(*dir) )
-	// 	}
-	// }
-	//
-	// fmt.Println(files)
-
-	// data, err := ioutil.ReadFile(*dir)
-	// if err != nil {
-	// 	fmt.Println("File reading error", err)
-	// 	return
-	// }
-	// fmt.Println("Contents of file:", string(data))
-
-
 
 	// READ
 	// """Reading file content"""
@@ -114,7 +114,7 @@ func main() {
 	file := flag.String("file", "post.html", "This flag represents the name of any `.txt` file in the same directory as your program.")
 	flag.Parse()
 	// Print file to the console
-	fmt.Println(*file)
+	// fmt.Println(*file)
 	// set extention to a .html
 	extension := ".html"
 	// split from "." and replate with extention
