@@ -8,6 +8,8 @@ import (
 	"os"
 	"flag"
 	"strings"
+	"log"
+
 
 )
 
@@ -19,8 +21,83 @@ type Content struct {
 
 // ```What is the right way to make the functions modular? I am not sure how to call
 // these functions when the main() does not accept input or return output ```
-// Create main
+
+
+func readDir() {
+	dir := flag.String("dir", ".", "Find all .txt")
+	file, err := os.Open(*dir)
+	if err != nil{
+		log.Fatal("failed opening directory: %s", err)
+	}
+	defer file.Close()
+
+	list, _ := file.Readdirnames(0)
+	// fmt.Println(list)
+	n := 0
+	for _, name := range list {
+
+		if strings.Split(name, "")[len(name)-1] != "t"  {
+			list[n] = ""
+		}
+		n += 1
+	}
+	m := 0
+	for _, name := range list{
+		// fmt.Print(list)
+		if strings.Split(name, ".")[0] == "" {
+			list[m] = ""
+			// fmt.Println(name)
+		}
+		m += 1
+	}
+	fmt.Print("LIST: ", list)
+}
+
+
+	// fmt.Print(n)
+
+
+
+
+
 func main() {
+
+	readDir()
+
+
+
+
+
+
+
+
+	// var files []string
+
+	// dir := flag.String("dir", "makesite", "Find all .txt")
+	// flag.Parse()
+
+	// for _, file := range *dir{
+	// 	// fmt.Println("hi")
+	// 	fmt.Println(files)
+	// 	fmt.Println(file)
+	// 	return
+	//
+	// 	if filepath.Ext(*dir) == ".txt" {
+	// 		files = append(files, filepath.Ext(*dir) )
+	// 	}
+	// }
+	//
+	// fmt.Println(files)
+
+	// data, err := ioutil.ReadFile(*dir)
+	// if err != nil {
+	// 	fmt.Println("File reading error", err)
+	// 	return
+	// }
+	// fmt.Println("Contents of file:", string(data))
+
+
+
 	// READ
 	// """Reading file content"""
 	fileContents, err := ioutil.ReadFile("first-post.txt")
@@ -30,7 +107,7 @@ func main() {
 		panic(err)
 	}
 	// print fileContent
-	fmt.Print(string(fileContents))
+	// fmt.Print(string(fileContents))
 
 
 	// TRANSPOSE
@@ -53,7 +130,7 @@ func main() {
 	content := Content{string(fileContents)}
 	// Make the new template from parsed path
 	t := template.Must(template.New("template.tmpl").ParseFiles(path...))
-	// Create html
+	// Create new file
 	create, _ := os.Create(newFile)
 	err2 := t.Execute(create, content)
 	if err2 != nil{
