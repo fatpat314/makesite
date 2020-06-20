@@ -24,50 +24,70 @@ type Content struct {
 
 
 func renDir() {
+	// Set flag input default to this directory
 	dir := flag.String("dir", ".", "Find all .txt")
+	// Open the directory
 	file, err := os.Open(*dir)
+	// error
 	if err != nil{
 		log.Fatal("failed opening directory: %s", err)
 	}
 	defer file.Close()
+	// Make a list of the files in the directory
 	list, _ := file.Readdirnames(0)
+	// set counter to 0
 	n := 0
+	// start looping over the names of the files in list
 	for _, name := range list {
+		// if the name of the file does not end in a "t", remove from list
 		if strings.Split(name, "")[len(name)-1] != "t"  {
+			// How do I actually delete this from the list?
 			list[n] = ""
 		}
+		// increse counter for next itteration
 		n += 1
 	}
+	// start another counter at 0
 	m := 0
+	// start looping over the names that are leftover in list
 	for _, name := range list{
-		// fmt.Print(list)
+		// if there is nothing before the ".", remove from list
 		if strings.Split(name, ".")[0] == "" {
+			//How, delete, go, slice? ¯\_(ツ)_/¯
 			list[m] = ""
 		}
+		// increse counter
 		m += 1
 	}
+	// start looping over the list... again...
 	for _, name := range list{
+		// If the name of the file is nothing ""
 		if name == ""{
 			// do nothing
 		}else{
-		// Basically the same code as render, I would like to figure out
+		// This is basically the same code as render, I would like to figure out
 		// how to organize the inputs for RENDER so it can be modular and
 		 // so I can begin to have all of my function calls in main.
 		fmt.Print(name, "\n")
+		// set path for templating files
 		path := []string{
 			"template.tmpl",
 		}
+
 		extension := ".html"
 		file := name
-
+		// save file contents of each .txt folder
 		fileContents, err := ioutil.ReadFile(name)
+		// err
 		if err != nil {
 			// panic
 			panic(err)
 		}
-		// split from "." and replate with extention
+		// split from "." and replate with new extention
 		newFile := strings.Split(file, ".") [0] + extension
+		// populate the contents of the new html template
 		content := Content{string(fileContents)}
+		// make the new template
 		t := template.Must(template.New("template.tmpl").ParseFiles(path...))
 		// Create new file
 		create, _ := os.Create(newFile)
@@ -110,12 +130,12 @@ func main() {
 	// print fileContent
 	// fmt.Print(string(fileContents))
 
-
 	// TRANSPOSE
 	file := flag.String("file", "post.html", "This flag represents the name of any `.txt` file in the same directory as your program.")
 	flag.Parse()
 	// Print file to the console
 	// fmt.Println(*file)
+
 	// set extention to a .html
 	extension := ".html"
 	// split from "." and replate with extention
