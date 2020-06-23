@@ -9,8 +9,7 @@ import (
 	"flag"
 	"strings"
 	"log"
-
-
+	"github.com/mehanizm/iuliia-go"
 )
 
 // Creating Contents structure
@@ -21,6 +20,11 @@ type Content struct {
 
 // ```What is the right way to make the functions modular? I am not sure how to call
 // these functions when the main() does not accept input or return output ```
+
+func translate() {
+	translated := iuliia.Wikipedia.Translate("Привет мир")
+	fmt.Println(translated)
+}
 
 
 func renDir() {
@@ -116,6 +120,7 @@ func renDir() {
 
 func main() {
 
+	translate()
 	renDir()
 
 

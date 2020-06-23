@@ -1,0 +1,8 @@
+github.com/garyburd/redigo v1.6.0 h1:0VruCpn7yAIIu7pWVClQC8wxCJEcG3nyzpMSHKi1PQc=
+github.com/garyburd/redigo v1.6.0/go.mod h1:NR3MbYisc3/PwhQ00EMzDiPmrwpPxAn5GI05/YaO1SY=
+github.com/mehanizm/iuliia-go v1.0.1 h1:kjNSj2imU6UgM/Pjb+1EXU/EAoaPjq+1In1IJPMaGYI=
+github.com/mehanizm/iuliia-go v1.0.1/go.mod h1:DwW+0FacfxBaTkMmy9RsxIsxmQzFEunORXw/QppQ1TY=
+github.com/nuveo/translate v0.0.0-20160228151256-039477d262d5 h1:y05z7TFAcSur9PeeipTPH2nL15EapWTxuDXE0SEZYjg=
+github.com/nuveo/translate v0.0.0-20160228151256-039477d262d5/go.mod h1:s5e/Uh267ME/jp/WvHdByIzYAK/uvZ/NkemGDQTh23o=
+github.com/nuveo/utils v0.0.0-20181006075520-008cbccab471 h1:hypgEXtumQQirHC/VI6wiR70lQrPaewW9p+gQI2UqPo=
+github.com/nuveo/utils v0.0.0-20181006075520-008cbccab471/go.mod h1:SqpNDoISqhY4Sn9koFP+a52zQHUTv/JP59UJZulVnXw=
