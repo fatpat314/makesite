@@ -73,6 +73,17 @@ func renDir() {
 		// how to organize the inputs for RENDER so it can be modular and
 		 // so I can begin to have all of my function calls in main.
 		fmt.Print(name, "\n")
+		alpha := "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя"
+
+		fileContents, _ := ioutil.ReadFile(name)
+		if strings.ContainsAny(string(fileContents), alpha){
+
+			translatedFile := iuliia.Wikipedia.Translate(string(fileContents))
+			fmt.Println(string(fileContents))
+			fmt.Println(string(translatedFile))
+			// translatedFile = ioutil.WriteFile(name, translatedFile, 0644)
+		}
+
 		// set path for templating files
 		path := []string{
 			"template.tmpl",
@@ -81,12 +92,12 @@ func renDir() {
 		extension := ".html"
 		file := name
 		// save file contents of each .txt folder
-		fileContents, err := ioutil.ReadFile(name)
-		// err
-		if err != nil {
-			// panic
-			panic(err)
-		}
+		// fileContents, err := ioutil.ReadFile(name)
+		// // err
+		// if err != nil {
+		// 	// panic
+		// 	panic(err)
+		// }
 		// split from "." and replate with new extention
 		newFile := strings.Split(file, ".") [0] + extension
 		// populate the contents of the new html template
